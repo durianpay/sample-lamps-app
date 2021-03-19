@@ -20,6 +20,7 @@ import com.contentstack.contentstack_android_ecommerce_app.Constants.LOCALE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.ORDER_REF_ID
 import com.contentstack.contentstack_android_ecommerce_app.Constants.SITE_NAME
 import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.Customer
+import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.Item
 import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.OrdersRequest
 import com.contentstack.contentstack_android_ecommerce_app.utils.ResourceStatus
 import com.contentstack.contentstack_android_ecommerce_app.utils.StatusType
@@ -59,6 +60,16 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener {
 
         setupObservers();
         btnPurchase.setOnClickListener {
+            var item: List<Item>? = null
+            if (lamp!=null) {
+                 item = listOf(
+                     Item(
+                         name = lamp.title,
+                         qty = 1,
+                         price = lamp.price.toString()
+                     )
+                 )
+            }
             val customer = Customer(
                 null,
                 CUSTOMER_REF_ID,
@@ -66,12 +77,13 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener {
                 CUSTOMER_GIVEN_NAME
             )
             val order = OrdersRequest(null,
-                AMOUNT,
+                lamp!!.price,
                 CURRENCY,
                 customer,
                 null,
-                null,
-                ORDER_REF_ID)
+                items = item,
+                order_ref_id = ORDER_REF_ID
+            )
 
             setupListeners(order);
         }
