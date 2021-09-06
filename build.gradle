@@ -8,6 +8,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -21,6 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenLocal()
         maven {
             name = "AndroidPackages"
             /*  Configure path to the library hosted on GitHub Packages Registry
@@ -34,7 +36,7 @@ allprojects {
                  ** Or set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
 
                 username = "PavanDevara"
-                password = "f2c6189a14762989fbb971b93d65b8dc4fb36453"
+                password = "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"
                 println(username)
                 println(password)
             }

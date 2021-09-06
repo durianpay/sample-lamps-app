@@ -56,7 +56,7 @@ interface OrdersApiService {
                 .create()
             Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(Constants.PRODUCTION_ORDERS_URL)
+                .baseUrl(Constants.MERCHANT_BACKEND_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson)).addCallAdapterFactory(
                     CoroutineCallAdapterFactory()
                 )
