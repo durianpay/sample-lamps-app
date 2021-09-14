@@ -1,6 +1,7 @@
 package com.contentstack.contentstack_android_ecommerce_app
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,16 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.contentstack.contentstack_android_ecommerce_app.Constants.AMOUNT
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CURRENCY
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_ADDRESS_LINE1
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERCITY
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_COUNTRY
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_MOBILE
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_POSTAL_CODE
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_REGION
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_EMAIL
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_GIVEN_NAME
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_REF_ID
 import com.contentstack.contentstack_android_ecommerce_app.Constants.ENVIRONMENT
+import com.contentstack.contentstack_android_ecommerce_app.Constants.LABEL
+import com.contentstack.contentstack_android_ecommerce_app.Constants.LANDMARK
 import com.contentstack.contentstack_android_ecommerce_app.Constants.LOCALE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.ORDER_REF_ID
+import com.contentstack.contentstack_android_ecommerce_app.Constants.RECEIVER_NAME
+import com.contentstack.contentstack_android_ecommerce_app.Constants.RECEIVER_PHONE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.SITE_NAME
 import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.Customer
+import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.Item
 import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.OrdersRequest
 import com.contentstack.contentstack_android_ecommerce_app.utils.ResourceStatus
 import com.contentstack.contentstack_android_ecommerce_app.utils.StatusType
@@ -35,11 +46,12 @@ import kotlinx.android.synthetic.main.suggested_for_you_section.*
 
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class ProductActivity : AppCompatActivity(), CheckoutResultListener {
+class ProductActivity : AppCompatActivity(), CheckoutResultListener{
 
     val TAG = ProductActivity::class.java.simpleName
     private lateinit var viewModel: OrdersViewModel
     var progressBar: ProgressDialog? = null
+    var amount = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,25 +71,42 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener {
 
         setupObservers();
         btnPurchase.setOnClickListener {
-            val customer = Customer(
-                null,
-                CUSTOMER_REF_ID,
-                CUSTOMER_EMAIL,
-                CUSTOMER_GIVEN_NAME
-            )
-            val order = OrdersRequest(null,
-                AMOUNT,
-                CURRENCY,
-                customer,
-                null,
-                null,
-                ORDER_REF_ID)
+            var item: List<Item>? = null
+            if (lamp!=null) {
+                amount = lamp.price;
+                 item = listOf(
+                     Item(
+                         name = lamp.title,
+                         qty = 1,
+                         price = lamp.price
+                     )
+                 )
 
-            setupListeners(order);
+                val customer = Customer(
+                    null,
+                    CUSTOMER_REF_ID,
+                    CUSTOMER_EMAIL,
+                    CUSTOMER_GIVEN_NAME
+                )
+                val order = OrdersRequest(null,
+                    lamp.price,
+                    CURRENCY,
+                    customer,
+                    null,
+                    items = item,
+                    order_ref_id = ORDER_REF_ID
+                )
+
+                setupListeners(order);
+            }
         }
     }
 
     private fun setupListeners(order: OrdersRequest) {
+        val mainIntent = Intent(Intent.ACTION_MAIN, null)
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+        val installedList = this.getPackageManager().queryIntentActivities(mainIntent, 0)
+
         viewModel.callOrdersData(this, order)
     }
 
@@ -85,13 +114,7 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener {
         viewModel.apiResponseData.observe(this, Observer {
             Log.d(TAG, it.access_token.toString())
             val checkoutOptions = DCheckoutOptions()
-            checkoutOptions.environment = ENVIRONMENT
-            checkoutOptions.locale = LOCALE
-            checkoutOptions.siteName = SITE_NAME
-            checkoutOptions.customerId = CUSTOMER_REF_ID
-            checkoutOptions.orderId = it.order_id
-            checkoutOptions.accessToken = it.access_token
-
+            addCheckoutOptions(checkoutOptions, it.access_token, it.order_id)
             Durianpay.getInstance(this)
                 .checkout(checkoutOptions, this)
         })
@@ -104,7 +127,7 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener {
         Picasso.get().load(lamp.image).into(previewIcon)
         titleLamp.text = lamp.title
         reviewLamp.text =   "${lamp.price} Review"
-        productPrice.text = "$${lamp.price}"
+        productPrice.text = "Rp ${lamp.price}"
 
         loadSuggested4You()
     }
@@ -160,5 +183,29 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener {
     override fun onClose(s: String?) {
         Toast.makeText(this, "Payment closed before completion" + "\n" + s, Toast.LENGTH_SHORT)
             .show()
+        Log.d("payment closed", s.toString());
+    }
+
+    fun addCheckoutOptions(checkoutOptions: DCheckoutOptions, accessToken: String, orderId: String) {
+        checkoutOptions.environment = ENVIRONMENT
+        checkoutOptions.locale = LOCALE
+        checkoutOptions.siteName = SITE_NAME
+        checkoutOptions.customerId = CUSTOMER_REF_ID
+        checkoutOptions.orderId = orderId
+        checkoutOptions.accessToken = accessToken
+        checkoutOptions.customerEmail = CUSTOMER_EMAIL
+        checkoutOptions.customerGivenName = CUSTOMER_GIVEN_NAME
+        checkoutOptions.amount = amount
+        checkoutOptions.currency = CURRENCY
+        checkoutOptions.label = LABEL
+        checkoutOptions.customerAddressLine1 = CUSTOMER_ADDRESS_LINE1
+        checkoutOptions.customerCity = CUSTOMERCITY
+        checkoutOptions.customerCountry = CUSTOMER_COUNTRY
+        checkoutOptions.customerRegion = CUSTOMER_REGION
+        checkoutOptions.customerPostalCode = CUSTOMER_POSTAL_CODE
+        checkoutOptions.receiverName = RECEIVER_NAME
+        checkoutOptions.receiverPhone = RECEIVER_PHONE
+        checkoutOptions.customerMobile = CUSTOMER_MOBILE
+        checkoutOptions.landmark = LANDMARK
     }
 }

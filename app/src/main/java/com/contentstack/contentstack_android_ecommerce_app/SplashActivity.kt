@@ -37,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
                             title = parserKEY(entry, "title").toString(),
                             description = parserKEY(entry, "description").toString(),
                             image = entry.toJSON().getJSONObject("image").optString("url"),
-                            price = parserKEY(entry, "price").toString(),
+                            price = (parserKEY(entry, "price").toString().toInt()*100).toString(),
                             isLoved = parserKEY(entry, "isfavorite") as Boolean
                             ))
                     }

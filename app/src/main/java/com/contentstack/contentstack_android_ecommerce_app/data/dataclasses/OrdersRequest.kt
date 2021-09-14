@@ -2,7 +2,7 @@ package com.contentstack.contentstack_android_ecommerce_app.data.dataclasses
 
 data class OrdersRequest(
     val access_token: String?,
-    val amount: Long?,
+    val amount: String,
     val currency: String,
     val customer: Customer,
     val description: String?,
