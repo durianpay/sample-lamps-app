@@ -12,12 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CURRENCY
-import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERADDRESSLINE1
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_ADDRESS_LINE1
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERCITY
-import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERCOUNTRY
-import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERMOBILE
-import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERPOSTALCODE
-import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMERREGION
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_COUNTRY
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_MOBILE
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_POSTAL_CODE
+import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_REGION
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_EMAIL
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_GIVEN_NAME
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_REF_ID
@@ -26,8 +26,8 @@ import com.contentstack.contentstack_android_ecommerce_app.Constants.LABEL
 import com.contentstack.contentstack_android_ecommerce_app.Constants.LANDMARK
 import com.contentstack.contentstack_android_ecommerce_app.Constants.LOCALE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.ORDER_REF_ID
-import com.contentstack.contentstack_android_ecommerce_app.Constants.RECEIVERNAME
-import com.contentstack.contentstack_android_ecommerce_app.Constants.RECEIVERPHONE
+import com.contentstack.contentstack_android_ecommerce_app.Constants.RECEIVER_NAME
+import com.contentstack.contentstack_android_ecommerce_app.Constants.RECEIVER_PHONE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.SITE_NAME
 import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.Customer
 import com.contentstack.contentstack_android_ecommerce_app.data.dataclasses.Item
@@ -106,9 +106,7 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
         val installedList = this.getPackageManager().queryIntentActivities(mainIntent, 0)
-        for (i in installedList) {
-            Log.d("packages", i.activityInfo.packageName)
-        }
+
         viewModel.callOrdersData(this, order)
     }
 
@@ -200,14 +198,14 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
         checkoutOptions.amount = amount
         checkoutOptions.currency = CURRENCY
         checkoutOptions.label = LABEL
-        checkoutOptions.customerAddressLine1 = CUSTOMERADDRESSLINE1
+        checkoutOptions.customerAddressLine1 = CUSTOMER_ADDRESS_LINE1
         checkoutOptions.customerCity = CUSTOMERCITY
-        checkoutOptions.customerCountry = CUSTOMERCOUNTRY
-        checkoutOptions.customerRegion = CUSTOMERREGION
-        checkoutOptions.customerPostalCode = CUSTOMERPOSTALCODE
-        checkoutOptions.receiverName = RECEIVERNAME
-        checkoutOptions.receiverPhone = RECEIVERPHONE
-        checkoutOptions.customerMobile = CUSTOMERMOBILE
+        checkoutOptions.customerCountry = CUSTOMER_COUNTRY
+        checkoutOptions.customerRegion = CUSTOMER_REGION
+        checkoutOptions.customerPostalCode = CUSTOMER_POSTAL_CODE
+        checkoutOptions.receiverName = RECEIVER_NAME
+        checkoutOptions.receiverPhone = RECEIVER_PHONE
+        checkoutOptions.customerMobile = CUSTOMER_MOBILE
         checkoutOptions.landmark = LANDMARK
     }
 }

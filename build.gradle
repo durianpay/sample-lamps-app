@@ -37,8 +37,6 @@ allprojects {
 
                 username = "PavanDevara"
                 password = "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"
-                println(username)
-                println(password)
             }
         }
     }
