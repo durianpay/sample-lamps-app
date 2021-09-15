@@ -1,9 +1,28 @@
-# E-commerce Application In Kotlin Using Contentstack Android SDK.
+# Durianpay Android Sample App
 
-**About this project**: 
+This repository demonstrates how to integrate Durianpay's Android SDK.
 
-Create an Android E-Commerce app using Contentstack Android SDK and integrate the payment flow with durianpay sdk.
+The documentation to our Android SDK is available[here](https://durianpay.id/docs/mobile/android-native/)
 
-**screenshots**:
+#Integration
 
-<img src='https://github.com/contentstack/contentstack-android-ecommerce-app/blob/master/app/src/main/assets/screen1.png' width='250' height='510'/> ... <img src='https://github.com/contentstack/contentstack-android-ecommerce-app/blob/master/app/src/main/assets/screen2.png' width='250' height='510'/> ... <img src='https://github.com/contentstack/contentstack-android-ecommerce-app/blob/master/app/src/main/assets/screen3.png' width='250' height='510'/>
+Add the following lines in project level `android/build.gradle` file to add a repository to get the android sdk:
+```
+allprojects {
+    repositories {
+        maven {
+            name = "AndroidPackages"
+            url = uri("https://maven.pkg.github.com/PavanDevara/durianpaysdk")
+            credentials {
+                username = "PavanDevara"
+                password = "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"
+            }
+        }
+    }
+}
+```
+
+Add this line to your app's build.gradle inside the dependencies section:
+```
+implementation 'id.durianpay.android:durianpaysdk:1.3.1@aar'
+```
