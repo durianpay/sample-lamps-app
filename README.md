@@ -6,6 +6,8 @@ The documentation to our Android SDK is available[here](https://durianpay.id/doc
 
 ## Integration
 
+The checkout procedure is present in ProductActivity.kt file
+
 Add the following lines in project level `android/build.gradle` file to add a repository to get the android sdk:
 ```
 allprojects {
