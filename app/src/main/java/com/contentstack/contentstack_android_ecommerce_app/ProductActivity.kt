@@ -39,6 +39,8 @@ import com.squareup.picasso.Picasso
 import id.durianpay.android.Durianpay
 import id.durianpay.android.Interfaces.CheckoutResultListener
 import id.durianpay.android.model.DCheckoutOptions
+import id.durianpay.android.model.DPaymentFailed
+import id.durianpay.android.model.DPaymentSuccess
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.lamp_recycler_view_item.previewIcon
 import kotlinx.android.synthetic.main.price_review_title_section.*
@@ -170,14 +172,14 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
 
     }
 
-    override fun onSuccess(s: String?) {
-        Log.d("callbackSuccess", s.toString())
-        Toast.makeText(this, "Payment Success" + "\n" + s, Toast.LENGTH_LONG).show()
+    override fun onSuccess(s: DPaymentSuccess?) {
+        Log.d("callbackSuccess", s?.response?.paymentId.toString())
+        Toast.makeText(this, "Payment Success" + "\n" + s?.response?.paymentId.toString(), Toast.LENGTH_LONG).show()
     }
 
-    override fun onFailure(s: String?) {
-        Log.d("callbackFailure", s.toString())
-        Toast.makeText(this, "Payment Failed" + "\n" + s, Toast.LENGTH_SHORT).show()
+    override fun onFailure(s: DPaymentFailed?) {
+        Log.d("callbackFailure", s?.response?.orderId.toString())
+        Toast.makeText(this, "Payment Failed" + "\n" + s?.response?.orderId.toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun onClose(s: String?) {

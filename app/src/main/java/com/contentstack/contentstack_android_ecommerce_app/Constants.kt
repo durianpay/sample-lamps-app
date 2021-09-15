@@ -1,8 +1,9 @@
 package com.contentstack.contentstack_android_ecommerce_app
 
 object Constants {
-    const val MERCHANT_BACKEND_URL = "https://pzfvd7ixh2.execute-api.us-east-1.amazonaws.com"
-    const val ENVIRONMENT = "production"
+//    const val MERCHANT_BACKEND_URL = "https://pzfvd7ixh2.execute-api.us-east-1.amazonaws.com"
+    const val MERCHANT_BACKEND_URL = "http://192.168.154.111:4001"
+    const val ENVIRONMENT = "staging"
     const val SITE_NAME = "Movie Ticket"
     const val LOCALE = "en"
 
