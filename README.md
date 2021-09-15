@@ -4,7 +4,7 @@ This repository demonstrates how to integrate Durianpay's Android SDK.
 
 The documentation to our Android SDK is available[here](https://durianpay.id/docs/mobile/android-native/)
 
-#Integration
+## Integration
 
 Add the following lines in project level `android/build.gradle` file to add a repository to get the android sdk:
 ```
@@ -26,3 +26,5 @@ Add this line to your app's build.gradle inside the dependencies section:
 ```
 implementation 'id.durianpay.android:durianpaysdk:1.3.1@aar'
 ```
+
+Check again on all .gradle and ProductActivity.kt and Constants.kt file for secret keys
