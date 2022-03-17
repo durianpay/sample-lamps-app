@@ -39,6 +39,8 @@ import com.squareup.picasso.Picasso
 import id.durianpay.android.Durianpay
 import id.durianpay.android.Interfaces.CheckoutResultListener
 import id.durianpay.android.model.DCheckoutOptions
+import id.durianpay.android.model.DPaymentFailed
+import id.durianpay.android.model.DPaymentSuccess
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.lamp_recycler_view_item.previewIcon
 import kotlinx.android.synthetic.main.price_review_title_section.*
@@ -170,14 +172,14 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
 
     }
 
-    override fun onSuccess(s: String?) {
-        Log.d("callbackSuccess", s.toString())
-        Toast.makeText(this, "Payment Success" + "\n" + s, Toast.LENGTH_LONG).show()
+    override fun onSuccess(p0: DPaymentSuccess?) {
+        Log.d("callbackSuccess", p0.toString())
+        Toast.makeText(this, "Payment Success" + "\n" + p0, Toast.LENGTH_LONG).show()
     }
 
-    override fun onFailure(s: String?) {
-        Log.d("callbackFailure", s.toString())
-        Toast.makeText(this, "Payment Failed" + "\n" + s, Toast.LENGTH_SHORT).show()
+    override fun onFailure(p0: DPaymentFailed?) {
+        Log.d("callbackFailure", p0.toString())
+        Toast.makeText(this, "Payment Failed" + "\n" + p0, Toast.LENGTH_SHORT).show()
     }
 
     override fun onClose(s: String?) {
@@ -185,6 +187,7 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
             .show()
         Log.d("payment closed", s.toString());
     }
+
 
     fun addCheckoutOptions(checkoutOptions: DCheckoutOptions, accessToken: String, orderId: String) {
         checkoutOptions.environment = ENVIRONMENT
