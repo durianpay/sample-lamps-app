@@ -23,22 +23,7 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-        maven {
-            name = "AndroidPackages"
-            /*  Configure path to the library hosted on GitHub Packages Registry
-             *  Replace UserID with package owner userID and REPOSITORY with the repository name
-             *  e.g. "https://maven.pkg.github.com/enefce/AndroidLibraryForGitHubPackagesDemo"*/
-
-            url = uri("https://maven.pkg.github.com/PavanDevara/durianpaysdk")
-            credentials {
-                /** Create github.properties in root project folder file with
-                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
-                 ** Or set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
-
-                username = "PavanDevara"
-                password = "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"
-            }
-        }
+        maven { url 'https://jitpack.io' }
     }
 }
 
