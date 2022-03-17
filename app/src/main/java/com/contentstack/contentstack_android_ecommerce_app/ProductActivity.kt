@@ -114,9 +114,9 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
 
     private fun setupObservers() {
         viewModel.apiResponseData.observe(this, Observer {
-            Log.d(TAG, it.access_token.toString())
+            Log.d(TAG, viewModel.apiResponseData.toString())
             val checkoutOptions = DCheckoutOptions()
-            addCheckoutOptions(checkoutOptions, it.access_token, it.order_id)
+            addCheckoutOptions(checkoutOptions, it.data.access_token, it.data.id)
             Durianpay.getInstance(this)
                 .checkout(checkoutOptions, this)
         })
