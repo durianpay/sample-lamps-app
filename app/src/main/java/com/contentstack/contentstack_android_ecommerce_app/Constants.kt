@@ -24,4 +24,5 @@ object Constants {
     const val RECEIVER_PHONE = "8999998999"
     const val CUSTOMER_MOBILE = "8939983823"
     const val LANDMARK = "avenue east"
+    const val DARKMODE = true
 }
