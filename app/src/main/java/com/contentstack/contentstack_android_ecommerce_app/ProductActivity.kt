@@ -22,7 +22,10 @@ import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_EM
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_GIVEN_NAME
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_REF_ID
 import com.contentstack.contentstack_android_ecommerce_app.Constants.DARKMODE
+<<<<<<< HEAD
 import com.contentstack.contentstack_android_ecommerce_app.Constants.DELAYMS
+=======
+>>>>>>> 811c9e5991a753d14a9848f8556e22dc734a7df3
 import com.contentstack.contentstack_android_ecommerce_app.Constants.ENVIRONMENT
 import com.contentstack.contentstack_android_ecommerce_app.Constants.FORCEFAIL
 import com.contentstack.contentstack_android_ecommerce_app.Constants.LABEL
