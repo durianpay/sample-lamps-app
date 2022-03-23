@@ -21,6 +21,7 @@ import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_RE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_EMAIL
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_GIVEN_NAME
 import com.contentstack.contentstack_android_ecommerce_app.Constants.CUSTOMER_REF_ID
+import com.contentstack.contentstack_android_ecommerce_app.Constants.DARK_MODE
 import com.contentstack.contentstack_android_ecommerce_app.Constants.ENVIRONMENT
 import com.contentstack.contentstack_android_ecommerce_app.Constants.LABEL
 import com.contentstack.contentstack_android_ecommerce_app.Constants.LANDMARK
@@ -210,5 +211,8 @@ class ProductActivity : AppCompatActivity(), CheckoutResultListener{
         checkoutOptions.receiverPhone = RECEIVER_PHONE
         checkoutOptions.customerMobile = CUSTOMER_MOBILE
         checkoutOptions.landmark = LANDMARK
+        checkoutOptions.isDarkMode = DARK_MODE
+        checkoutOptions.isForceFail = true
+        checkoutOptions.delayMs = 3000
     }
 }
